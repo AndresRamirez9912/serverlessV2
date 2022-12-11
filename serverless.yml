@@ -1,9 +1,25 @@
 service: tick-serverless-v2
 frameworkVersion: '3'
 
+custom:
+  stage: ${opt:stage, self:provider.stage} # ${opt:} means the CLI parameters 
+  settings:
+    dev:
+      STAGE: ${self:custom.stage}
+      DYNAMO_TABLE: tick-table-${self:custom.stage}
+      REGIO: ${self.provider.region}
+    prod:
+      STAGE: ${self:custom.stage}
+      DYNAMO_TABLE: tick-table-${self:custom.stage}
+      REGIO: ${self.provider.region}
+
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
+  stage: dev #Default stage
+  region: us-east-2
+  environment: ${self:custom.settings.${self:custom.stage}}
+    
 
 functions:
   hello:

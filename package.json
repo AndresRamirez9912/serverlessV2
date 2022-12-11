@@ -1,0 +1,19 @@
+{
+  "name": "aws-serverless",
+  "version": "1.0.0",
+  "description": "Create an aws serverless application in serverless framework",
+  "scripts": {
+    "deploy": "sls deploy --stage dev",
+    "deploy-prod": "sls deploy --stage prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndresRamirez9912/serverlessV2.git"
+  },
+  "author": "Andres Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndresRamirez9912/serverlessV2/issues"
+  },
+  "homepage": "https://github.com/AndresRamirez9912/serverlessV2#readme"
+}
