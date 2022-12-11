@@ -7,11 +7,11 @@ custom:
     dev:
       STAGE: ${self:custom.stage}
       DYNAMO_TABLE: tick-table-${self:custom.stage}
-      REGIO: ${self.provider.region}
+      REGION: ${self.provider.region}
     prod:
       STAGE: ${self:custom.stage}
       DYNAMO_TABLE: tick-table-${self:custom.stage}
-      REGIO: ${self.provider.region}
+      REGION: ${self.provider.region}
 
 provider:
   name: aws
@@ -19,6 +19,12 @@ provider:
   stage: dev #Default stage
   region: us-east-2
   environment: ${self:custom.settings.${self:custom.stage}}
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - dynamodb:*
+      Resource: 
+        - arn:aws:dynamodb:${self.provider.region}:*:${self:custom.settings.${self:custom.stage}.DYNAMO_TABLE}
     
 
 functions:
