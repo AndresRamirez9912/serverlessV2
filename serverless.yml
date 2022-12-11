@@ -22,9 +22,23 @@ provider:
     
 
 functions:
-  hello:
-    handler: handler.hello
+  save:
+    handler: src/handler.tick
     events:
       - httpApi:
           path: /
-          method: get
+          method: post
+
+resources:
+  Resources:
+    TickEntriesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.settings.${self:custom.stage}.DYNAMO_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S #String type
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
